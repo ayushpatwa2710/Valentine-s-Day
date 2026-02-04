@@ -32,42 +32,47 @@
 
         .card {
             background: white;
-            padding: 40px 35px;
+            padding: 40px 45px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             text-align: center;
             z-index: 10;
+            min-width: 400px; /* Ensures the single line has breathing room */
         }
 
         .heart-icon {
             font-size: 40px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         h1 {
             color: var(--primary-pink);
-            font-size: 1.8rem;
-            margin: 0 0 30px 0;
+            font-size: 1.9rem;
+            margin: 0 0 35px 0;
             white-space: nowrap;
-            letter-spacing: -0.8px;
+            letter-spacing: -1px;
+            font-weight: 700;
         }
 
         .btn-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            height: 55px;
+            gap: 25px; /* Spacing between buttons on load */
+            height: 60px;
         }
 
         button {
             width: 110px;
             height: 50px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             border: none;
             border-radius: 12px;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #noBtn {
@@ -80,9 +85,9 @@
             background-color: white;
             color: var(--primary-pink);
             border: 2px solid var(--primary-pink);
-            position: absolute; /* Fixed to start inside container */
-            transition: all 0.2s ease; /* Smooth glide to next position */
+            position: relative; /* Fixed: Starts side-by-side with No */
             z-index: 100;
+            transition: all 0.2s ease;
         }
     </style>
 </head>
@@ -103,26 +108,23 @@
         const yesBtn = document.getElementById('yesBtn');
         let currentPos = 0;
 
-        // Pre-defined positions (1 to 5)
-        // Adjust these % values to change where the button jumps on screen
         const positions = [
-            { top: '10%', left: '10%' }, // Position 1
-            { top: '10%', left: '80%' }, // Position 2
-            { top: '80%', left: '80%' }, // Position 3
-            { top: '80%', left: '10%' }, // Position 4
-            { top: '50%', left: '50%' }  // Position 5 (Center-ish)
+            { top: '15%', left: '15%' },
+            { top: '15%', left: '85%' },
+            { top: '85%', left: '85%' },
+            { top: '85%', left: '15%' },
+            { top: '50%', left: '50%' }
         ];
 
         yesBtn.addEventListener('mouseover', () => {
-            // Move to the next position in the array
             const pos = positions[currentPos];
             
-            yesBtn.style.position = 'fixed';
+            // On first hover, this flips from relative to fixed
+            yesBtn.style.position = 'fixed'; 
             yesBtn.style.top = pos.top;
             yesBtn.style.left = pos.left;
-            yesBtn.style.transform = 'translate(-50%, -50%)'; // Centers button on the coordinate
+            yesBtn.style.transform = 'translate(-50%, -50%)';
 
-            // Increment or reset to 0
             currentPos = (currentPos + 1) % positions.length;
         });
 
@@ -130,7 +132,6 @@
             window.location.href = "https://www.instagram.com/p/DSmjR7wCNiJ/";
         }
 
-        // Simple Floating Hearts
         function createHeart() {
             const heart = document.createElement('div');
             heart.innerHTML = '❤️';
@@ -138,14 +139,14 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.top = '110vh';
             heart.style.fontSize = '20px';
-            heart.style.opacity = '0.5';
+            heart.style.opacity = '0.4';
             heart.style.transition = 'transform 6s linear';
             document.getElementById('hearts-container').appendChild(heart);
 
             setTimeout(() => { heart.style.transform = 'translateY(-120vh)'; }, 100);
             setTimeout(() => { heart.remove(); }, 7000);
         }
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 450);
     </script>
 </body>
 </html>
